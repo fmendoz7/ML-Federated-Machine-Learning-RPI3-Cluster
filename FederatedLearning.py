@@ -40,12 +40,12 @@ def gen_policy_graphs(args):
     single_env = gym.make(args.env)
     obs_space = single_env.observation_space
     act_space = single_env.action_space
-    policy_graphs = {f'agent_{i}': (None, obs_space, act_space, {}) 
+    policy_graphs = {'agent_{i}': (None, obs_space, act_space, {}) 
          for i in range(args.num_agents)}
     return policy_graphs
 
 def policy_mapping_fn(agent_id):
-    return f'agent_{agent_id}'
+    return 'agent_{agent_id}'
 def change_weights(weights, i):
     """
     Helper function for FedQ-Learning
@@ -65,7 +65,7 @@ def synchronize(agent, weights, num_agents):
     """
     Helper function to synchronize weights of the multiagent
     """
-    weights_to_set = {f'agent_{i}': weights 
+    weights_to_set = {'agent_{i}': weights 
          for i in range(num_agents)}
     # weights_to_set = {f'agent_{i}': change_weights(weights, i) 
     #    for i in range(num_agents)}
