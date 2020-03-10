@@ -148,7 +148,7 @@ def fed_train(args):
         if result['training_iteration'] == 1:
             uniform_initialize(agent, num_agents)
         elif result['training_iteration'] % num_iters == 0:
-            result['federated'] = f"Federation with {temperature}"
+            result['federated'] = "Federation with {temperature}"
             # update weights
             softmax_reward_weighted_update(agent, result, num_agents, temperature)
             # clear buffer, don't want smoothing here
@@ -162,12 +162,12 @@ def fedrl(args):
     callback = fed_train(args)
     tune.run(
         args.algo,
-        name=f"{args.env}-{args.algo}-{args.num_agents}",
+        name="{args.env}-{args.algo}-{args.num_agents}",
         stop={"episode_reward_mean": 9800},
         config={
                 "multiagent": {
                     "policy_graphs": policy_graphs,
-                    "policy_mapping_fn": tune.function(lambda agent_id: f'agent_{agent_id}'),
+                    "policy_mapping_fn": tune.function(lambda agent_id: 'agent_{agent_id}'),
                 },
                 "env": multienv_name,
                 "gamma": 0.99,
